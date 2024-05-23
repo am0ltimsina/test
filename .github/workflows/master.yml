@@ -20,4 +20,4 @@ jobs:
 
     - name: Deploy to FTP server
       run: |
-        ftp-deploy --username $FTP_USERNAME --password $FTP_PASSWORD --server ftp.example.com
+        ftp-deploy --username $FTP_USERNAME --password $FTP_PASSWORD --server ftp.dhirajghimire.com.np
