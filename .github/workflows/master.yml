@@ -1,32 +1,22 @@
-name: CI/CD Pipeline
-
-on: [push]
+on: 
+  push:
+    branches:
+      - main
+name: 🚀 Deploy website on push
 
 jobs:
-  build:
+  web-deploy:
+    name: 🎉 Deploy website
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
+    # Checkout the repository
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+    # sync files via FTP
+    - name: 📂 Sync files via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        node-version: '14'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Install FTP deployment tool
-      run: npm install -g ftp-deploy
-
-    - name: Add debugging information
-      run: |
-        echo "PATH: $PATH"
-        which node
-        which npm
-        which ftp-deploy
-
-    - name: Run FTP deploy
-      run: ftp-deploy --username ${{ secrets.FTP_USERNAME }} --password ${{ secrets.FTP_PASSWORD }} --server ftp.dhirajghimire.com.np
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        
